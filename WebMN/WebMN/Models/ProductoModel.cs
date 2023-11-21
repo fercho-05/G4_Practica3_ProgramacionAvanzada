@@ -44,7 +44,28 @@ namespace WebMN.Models
                 var resp = client.PutAsync(url, contenido).Result;
                 return resp.Content.ReadFromJsonAsync<string>().Result;
             }
-        }        
+        }
+
+        public string ActualizarEstadoProducto(ProductoEnt entidad)
+        {
+            using (var client = new HttpClient())
+            {
+                string url = urlApi + "ActualizarEstadoProducto";
+                JsonContent contenido = JsonContent.Create(entidad);
+                var resp = client.PutAsync(url, contenido).Result;
+                return resp.Content.ReadFromJsonAsync<string>().Result;
+            }
+        }
+
+        public ProductoEnt ConsultaProducto(long q)
+        {
+            using (var client = new HttpClient())
+            {
+                var url = urlApi + "ConsultaProducto?q=" + q;
+                var res = client.GetAsync(url).Result;
+                return res.Content.ReadFromJsonAsync<ProductoEnt>().Result;
+            }
+        }
 
     }
 }

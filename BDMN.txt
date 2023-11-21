@@ -73,7 +73,7 @@ GO
 
 SET IDENTITY_INSERT [dbo].[TProducto] ON 
 GO
-INSERT [dbo].[TProducto] ([ConProducto], [Nombre], [Descripcion], [Precio], [Cantidad], [Imagen], [Estado]) VALUES (9, N'Laptop Lenovo', N'R7 5700U RAM 16GB DISCO DURO 1TB SSD P15.6" W11H  WIFI CARGA RAPIDA AMD RADEON', CAST(532900.00 AS Decimal(18, 2)), 5, N'/Images/9.png', 1)
+INSERT [dbo].[TProducto] ([ConProducto], [Nombre], [Descripcion], [Precio], [Cantidad], [Imagen], [Estado]) VALUES (9, N'Laptop Lenovo', N'R7 5700U RAM 16GB 1TB SSD', CAST(532900.00 AS Decimal(18, 2)), 5, N'/Images/9.png', 1)
 GO
 SET IDENTITY_INSERT [dbo].[TProducto] OFF
 GO

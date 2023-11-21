@@ -50,53 +50,58 @@ namespace ApiMN.Controllers
                 return "OK";
             }
         }
-
-
-        /*
-        // GET: api/TProductoes/5
-        [ResponseType(typeof(TProducto))]
-        public IHttpActionResult GetTProducto(long id)
-        {
-            TProducto tProducto = db.TProducto.Find(id);
-            if (tProducto == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(tProducto);
-        }
         
-
-        // DELETE: api/TProductoes/5
-        [ResponseType(typeof(TProducto))]
-        public IHttpActionResult DeleteTProducto(long id)
+        [HttpPut]
+        [Route("ActualizarEstadoProducto")]
+        public string ActualizarEstadoProducto(ProductoEnt entidad)
         {
-            TProducto tProducto = db.TProducto.Find(id);
-            if (tProducto == null)
+            try
             {
-                return NotFound();
+                using (var context = new BDMNEntities())
+                {
+                    var datos = (from x in context.TProducto
+                                 where x.ConProducto == entidad.ConProducto
+                                 select x).FirstOrDefault();
+
+                    if (datos != null)
+                    {
+                        datos.Estado = (datos.Estado == true ? false : true);
+                        context.SaveChanges();
+                    }
+
+                    return "OK";
+                }
             }
-
-            db.TProducto.Remove(tProducto);
-            db.SaveChanges();
-
-            return Ok(tProducto);
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
+            catch (Exception)
             {
-                db.Dispose();
+                return string.Empty;
             }
-            base.Dispose(disposing);
         }
 
-        private bool TProductoExists(long id)
+        [HttpGet]
+        [Route("ConsultaProducto")]
+        public TProducto ConsultaProducto(long q)
         {
-            return db.TProducto.Count(e => e.ConProducto == id) > 0;
+            try
+            {
+                using (var context = new BDMNEntities())
+                {
+                    context.Configuration.LazyLoadingEnabled = false;
+                    var datos = (from x in context.TProducto
+                                 where x.ConProducto == q
+                                 select x).FirstOrDefault();
+
+                    return datos;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
-        */
+
+
+
 
     }
 }

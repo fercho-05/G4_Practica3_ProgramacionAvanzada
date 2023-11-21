@@ -1,5 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="BDMNModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="TCarrito">
+    <Key>
+      <PropertyRef Name="ConCarrito" />
+    </Key>
+    <Property Name="ConCarrito" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ConUsuario" Type="bigint" Nullable="false" />
+    <Property Name="ConProducto" Type="bigint" Nullable="false" />
+    <Property Name="Cantidad" Type="int" Nullable="false" />
+    <Property Name="FechaCarrito" Type="datetime" Nullable="false" />
+  </EntityType>
   <EntityType Name="TProducto">
     <Key>
       <PropertyRef Name="ConProducto" />
@@ -39,6 +49,30 @@
     <Property Name="ConRol" Type="bigint" Nullable="false" />
     <Property Name="ConProvincia" Type="bigint" Nullable="false" />
   </EntityType>
+  <Association Name="FK_TCarrito_TProducto">
+    <End Role="TProducto" Type="Self.TProducto" Multiplicity="1" />
+    <End Role="TCarrito" Type="Self.TCarrito" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TProducto">
+        <PropertyRef Name="ConProducto" />
+      </Principal>
+      <Dependent Role="TCarrito">
+        <PropertyRef Name="ConProducto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TCarrito_TUsuario">
+    <End Role="TUsuario" Type="Self.TUsuario" Multiplicity="1" />
+    <End Role="TCarrito" Type="Self.TCarrito" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TUsuario">
+        <PropertyRef Name="ConUsuario" />
+      </Principal>
+      <Dependent Role="TCarrito">
+        <PropertyRef Name="ConUsuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_TUsuario_TProvincia">
     <End Role="TProvincia" Type="Self.TProvincia" Multiplicity="1" />
     <End Role="TUsuario" Type="Self.TUsuario" Multiplicity="*" />
@@ -74,10 +108,19 @@
     <Parameter Name="Contrasenna" Type="varchar" Mode="In" />
   </Function>
   <EntityContainer Name="BDMNModelStoreContainer">
+    <EntitySet Name="TCarrito" EntityType="Self.TCarrito" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TProducto" EntityType="Self.TProducto" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TProvincia" EntityType="Self.TProvincia" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TRol" EntityType="Self.TRol" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TUsuario" EntityType="Self.TUsuario" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_TCarrito_TProducto" Association="Self.FK_TCarrito_TProducto">
+      <End Role="TProducto" EntitySet="TProducto" />
+      <End Role="TCarrito" EntitySet="TCarrito" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TCarrito_TUsuario" Association="Self.FK_TCarrito_TUsuario">
+      <End Role="TUsuario" EntitySet="TUsuario" />
+      <End Role="TCarrito" EntitySet="TCarrito" />
+    </AssociationSet>
     <AssociationSet Name="FK_TUsuario_TProvincia" Association="Self.FK_TUsuario_TProvincia">
       <End Role="TProvincia" EntitySet="TProvincia" />
       <End Role="TUsuario" EntitySet="TUsuario" />

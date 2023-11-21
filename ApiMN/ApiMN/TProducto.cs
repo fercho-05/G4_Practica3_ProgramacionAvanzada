@@ -14,6 +14,12 @@ namespace ApiMN
     
     public partial class TProducto
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public TProducto()
+        {
+            this.TCarrito = new HashSet<TCarrito>();
+        }
+    
         public long ConProducto { get; set; }
         public string Nombre { get; set; }
         public string Descripcion { get; set; }
@@ -21,5 +27,8 @@ namespace ApiMN
         public int Cantidad { get; set; }
         public string Imagen { get; set; }
         public bool Estado { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TCarrito> TCarrito { get; set; }
     }
 }

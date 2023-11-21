@@ -54,5 +54,31 @@ namespace WebMN.Controllers
             }
         }
 
+        [HttpGet]
+        public ActionResult ActualizarEstadoProducto(long q)
+        {
+            var entidad = new ProductoEnt();
+            entidad.ConProducto = q;
+
+            var resp = productoModel.ActualizarEstadoProducto(entidad);
+
+            if (resp == "OK")
+            {
+                return RedirectToAction("ConsultarProductos", "Producto");
+            }
+            else
+            {
+                ViewBag.MensajeUsuario = "No se pudo actualizar el estado del producto";
+                return View();
+            }
+        }
+
+        [HttpGet]
+        public ActionResult ActualizarProducto(long q)
+        {
+            var datos = productoModel.ConsultaProducto(q);
+            return View(datos);
+        }
+
     }
 }

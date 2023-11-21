@@ -14,6 +14,12 @@ namespace ApiMN
     
     public partial class TUsuario
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public TUsuario()
+        {
+            this.TCarrito = new HashSet<TCarrito>();
+        }
+    
         public long ConUsuario { get; set; }
         public string Identificacion { get; set; }
         public string Nombre { get; set; }
@@ -23,6 +29,8 @@ namespace ApiMN
         public long ConRol { get; set; }
         public long ConProvincia { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TCarrito> TCarrito { get; set; }
         public virtual TProvincia TProvincia { get; set; }
         public virtual TRol TRol { get; set; }
     }
