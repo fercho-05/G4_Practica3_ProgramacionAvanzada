@@ -1,0 +1,186 @@
+USE [master]
+GO
+
+CREATE DATABASE [BDMN]
+GO
+
+USE [BDMN]
+GO
+
+CREATE TABLE [dbo].[TCarrito](
+	[ConCarrito] [bigint] IDENTITY(1,1) NOT NULL,
+	[ConUsuario] [bigint] NOT NULL,
+	[ConProducto] [bigint] NOT NULL,
+	[Cantidad] [int] NOT NULL,
+	[FechaCarrito] [datetime] NOT NULL,
+ CONSTRAINT [PK_TCarrito] PRIMARY KEY CLUSTERED 
+(
+	[ConCarrito] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[TProducto](
+	[ConProducto] [bigint] IDENTITY(1,1) NOT NULL,
+	[Nombre] [varchar](50) NOT NULL,
+	[Descripcion] [varchar](250) NOT NULL,
+	[Precio] [decimal](18, 2) NOT NULL,
+	[Cantidad] [int] NOT NULL,
+	[Imagen] [varchar](250) NOT NULL,
+	[Estado] [bit] NOT NULL,
+ CONSTRAINT [PK_TProducto] PRIMARY KEY CLUSTERED 
+(
+	[ConProducto] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[TProvincia](
+	[ConProvincia] [bigint] NOT NULL,
+	[Descripcion] [varchar](100) NOT NULL,
+ CONSTRAINT [PK_TProvincia] PRIMARY KEY CLUSTERED 
+(
+	[ConProvincia] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[TRol](
+	[ConRol] [bigint] IDENTITY(1,1) NOT NULL,
+	[Descripcion] [varchar](100) NOT NULL,
+ CONSTRAINT [PK_TRol] PRIMARY KEY CLUSTERED 
+(
+	[ConRol] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[TUsuario](
+	[ConUsuario] [bigint] IDENTITY(1,1) NOT NULL,
+	[Identificacion] [varchar](20) NOT NULL,
+	[Nombre] [varchar](100) NOT NULL,
+	[Correo] [varchar](100) NOT NULL,
+	[Contrasenna] [varchar](20) NOT NULL,
+	[Estado] [bit] NOT NULL,
+	[ConRol] [bigint] NOT NULL,
+	[ConProvincia] [bigint] NOT NULL,
+ CONSTRAINT [PK_TUsuario] PRIMARY KEY CLUSTERED 
+(
+	[ConUsuario] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+SET IDENTITY_INSERT [dbo].[TProducto] ON 
+GO
+INSERT [dbo].[TProducto] ([ConProducto], [Nombre], [Descripcion], [Precio], [Cantidad], [Imagen], [Estado]) VALUES (9, N'Laptop Lenovo', N'R7 5700U RAM 16GB DISCO DURO 1TB SSD P15.6" W11H  WIFI CARGA RAPIDA AMD RADEON', CAST(532900.00 AS Decimal(18, 2)), 5, N'/Images/9.png', 1)
+GO
+SET IDENTITY_INSERT [dbo].[TProducto] OFF
+GO
+
+INSERT [dbo].[TProvincia] ([ConProvincia], [Descripcion]) VALUES (1, N'San José')
+GO
+INSERT [dbo].[TProvincia] ([ConProvincia], [Descripcion]) VALUES (2, N'Alajuela')
+GO
+INSERT [dbo].[TProvincia] ([ConProvincia], [Descripcion]) VALUES (3, N'Cartago')
+GO
+INSERT [dbo].[TProvincia] ([ConProvincia], [Descripcion]) VALUES (4, N'Heredia')
+GO
+INSERT [dbo].[TProvincia] ([ConProvincia], [Descripcion]) VALUES (5, N'Puntarenas')
+GO
+INSERT [dbo].[TProvincia] ([ConProvincia], [Descripcion]) VALUES (6, N'Guanacaste')
+GO
+INSERT [dbo].[TProvincia] ([ConProvincia], [Descripcion]) VALUES (7, N'Limón')
+GO
+INSERT [dbo].[TProvincia] ([ConProvincia], [Descripcion]) VALUES (8, N'Seleccione')
+GO
+
+SET IDENTITY_INSERT [dbo].[TRol] ON 
+GO
+INSERT [dbo].[TRol] ([ConRol], [Descripcion]) VALUES (1, N'Administrador')
+GO
+INSERT [dbo].[TRol] ([ConRol], [Descripcion]) VALUES (2, N'Usuario')
+GO
+SET IDENTITY_INSERT [dbo].[TRol] OFF
+GO
+
+SET IDENTITY_INSERT [dbo].[TUsuario] ON 
+GO
+INSERT [dbo].[TUsuario] ([ConUsuario], [Identificacion], [Nombre], [Correo], [Contrasenna], [Estado], [ConRol], [ConProvincia]) VALUES (1, N'304590415', N'CALVO CASTILLO EDUARDO JOSE', N'ecalvo90415@ufide.ac.cr', N'90415', 1, 1, 3)
+GO
+INSERT [dbo].[TUsuario] ([ConUsuario], [Identificacion], [Nombre], [Correo], [Contrasenna], [Estado], [ConRol], [ConProvincia]) VALUES (2, N'305400042', N'LEIVA VILLALOBOS DEREK SEBASTIAN', N'dleiva00042@ufide.ac.cr', N'00042', 1, 2, 5)
+GO
+INSERT [dbo].[TUsuario] ([ConUsuario], [Identificacion], [Nombre], [Correo], [Contrasenna], [Estado], [ConRol], [ConProvincia]) VALUES (5, N'113770158', N'SEGREDA ELIZONDO LAURA ELENA', N'lsegreda70158@ufide.ac.cr', N'70158', 0, 2, 1)
+GO
+INSERT [dbo].[TUsuario] ([ConUsuario], [Identificacion], [Nombre], [Correo], [Contrasenna], [Estado], [ConRol], [ConProvincia]) VALUES (6, N'208270445', N'PEREZ ALPIZAR FERNANDO JOSE', N'fperez70445@ufide.ac.cr', N'60981', 1, 2, 2)
+GO
+SET IDENTITY_INSERT [dbo].[TUsuario] OFF
+GO
+
+ALTER TABLE [dbo].[TUsuario] ADD  CONSTRAINT [UK_Identificacion] UNIQUE NONCLUSTERED 
+(
+	[Identificacion] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[TCarrito]  WITH CHECK ADD  CONSTRAINT [FK_TCarrito_TProducto] FOREIGN KEY([ConProducto])
+REFERENCES [dbo].[TProducto] ([ConProducto])
+GO
+ALTER TABLE [dbo].[TCarrito] CHECK CONSTRAINT [FK_TCarrito_TProducto]
+GO
+
+ALTER TABLE [dbo].[TCarrito]  WITH CHECK ADD  CONSTRAINT [FK_TCarrito_TUsuario] FOREIGN KEY([ConUsuario])
+REFERENCES [dbo].[TUsuario] ([ConUsuario])
+GO
+ALTER TABLE [dbo].[TCarrito] CHECK CONSTRAINT [FK_TCarrito_TUsuario]
+GO
+
+ALTER TABLE [dbo].[TUsuario]  WITH CHECK ADD  CONSTRAINT [FK_TUsuario_TProvincia] FOREIGN KEY([ConProvincia])
+REFERENCES [dbo].[TProvincia] ([ConProvincia])
+GO
+ALTER TABLE [dbo].[TUsuario] CHECK CONSTRAINT [FK_TUsuario_TProvincia]
+GO
+
+ALTER TABLE [dbo].[TUsuario]  WITH CHECK ADD  CONSTRAINT [FK_TUsuario_TRol] FOREIGN KEY([ConRol])
+REFERENCES [dbo].[TRol] ([ConRol])
+GO
+ALTER TABLE [dbo].[TUsuario] CHECK CONSTRAINT [FK_TUsuario_TRol]
+GO
+
+CREATE PROCEDURE [dbo].[IniciarSesion_SP]
+	@Correo		 varchar(100),
+	@Contrasenna varchar(20)
+AS
+BEGIN
+	
+	SELECT ConUsuario,
+		   Identificacion,
+		   Nombre,
+		   Correo,
+		   Contrasenna,
+		   Estado,
+		   P.Descripcion 'DescripcionProvincia',
+		   R.Descripcion 'DescripcionRol'
+	  FROM dbo.TUsuario				U
+	  INNER JOIN dbo.TProvincia		P ON U.ConProvincia = P.ConProvincia
+	  INNER JOIN dbo.TRol			R ON U.ConRol		= R.ConRol
+	  WHERE Correo = @Correo
+	  AND Contrasenna = @Contrasenna
+	  AND Estado = 1
+
+END
+GO
+
+CREATE PROCEDURE [dbo].[RegistrarCuenta_SP]
+	@Identificacion varchar(20),
+    @Nombre			varchar(100),
+    @Correo			varchar(100),
+    @Contrasenna	varchar(20)
+AS
+BEGIN
+
+	INSERT INTO dbo.TUsuario (Identificacion,Nombre,Correo,Contrasenna,Estado,ConRol,ConProvincia)
+    VALUES (@Identificacion,@Nombre,@Correo,@Contrasenna,1,2,8)
+
+END
+GO
