@@ -5,4 +5,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
+@* PRUEBA DE QUE EL MÉTODO PARA DATOS ESPECIFICOS SIRVE *@
+@*   BORRAR Y ARREGLAR PARA ACTUALIZAR TODO *@
+@Html.TextBoxFor(m => m.Nombre, new { @readonly = "@readonly", style = "background-color:#eeeeee", @class = "form-control form-control-lg", @type = "text", placeholder = "Nombre" })
