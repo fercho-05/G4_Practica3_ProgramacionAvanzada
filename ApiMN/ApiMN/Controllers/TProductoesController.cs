@@ -101,7 +101,33 @@ namespace ApiMN.Controllers
         }
 
 
+        public string ActualizarProducto(ProductoEnt entidad)
+        {
+            try
+            {
+                using (var context = new BDMNEntities())
+                {
+                    var datos = (from x in context.TProducto
+                                 where x.ConProducto == entidad.ConProducto
+                                 select x).FirstOrDefault();
 
+                    if (datos != null)
+                    {
+                        datos.Nombre = entidad.Nombre;
+                        datos.Descripcion = entidad.Descripcion;
+                        datos.Precio = entidad.Precio;
+                        datos.Cantidad = entidad.Cantidad;
+                        datos.Imagen = entidad.Imagen;
+                        context.SaveChanges();
+                    }
 
+                    return "OK";
+                }
+             }
+            catch (Exception)
+            {
+                return string.Empty;
+            }
+        }
     }
 }

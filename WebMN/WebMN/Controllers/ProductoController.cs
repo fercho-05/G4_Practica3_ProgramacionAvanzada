@@ -80,5 +80,23 @@ namespace WebMN.Controllers
             return View(datos);
         }
 
+
+        [HttpPost]
+        public ActionResult ActualizarProducto(ProductoEnt entidad)
+        {
+            var resp = productoModel.ActualizarProducto(entidad);
+
+            if (resp == "OK")
+            {
+                return RedirectToAction("ActualizarProducto", "Producto");
+            }
+            else
+            {
+                ViewBag.MensajeUsuario = "No se pudo actualizar el producto";
+                return View();
+            }
+        }
+
+
     }
 }

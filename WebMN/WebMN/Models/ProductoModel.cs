@@ -35,6 +35,19 @@ namespace WebMN.Models
             }
         }
 
+        public string ActualizarProducto(ProductoEnt entidad)
+        {
+            using (var client = new HttpClient())
+            {
+                string url = urlApi + "ActualizarProducto";
+                JsonContent contenido = JsonContent.Create(entidad);
+                var resp = client.PutAsync(url, contenido).Result;
+                return resp.Content.ReadFromJsonAsync<string>().Result;
+            }
+        }
+
+
+
         public string ActualizarRutaImagen(ProductoEnt entidad)
         {
             using (var client = new HttpClient())
@@ -42,7 +55,7 @@ namespace WebMN.Models
                 string url = urlApi + "ActualizarRutaImagen";
                 JsonContent contenido = JsonContent.Create(entidad);
                 var resp = client.PutAsync(url, contenido).Result;
-                return resp.Content.ReadFromJsonAsync<string>().Result;
+                return resp.Content.ReadFromJsonAsync<string>().Result; 
             }
         }
 
