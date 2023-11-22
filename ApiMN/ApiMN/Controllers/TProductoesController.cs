@@ -101,6 +101,8 @@ namespace ApiMN.Controllers
         }
 
 
+        [HttpPut]
+        [Route("ActualizarProducto")]
         public string ActualizarProducto(ProductoEnt entidad)
         {
             try

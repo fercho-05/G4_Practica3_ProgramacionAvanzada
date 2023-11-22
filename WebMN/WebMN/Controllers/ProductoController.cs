@@ -64,7 +64,7 @@ namespace WebMN.Controllers
 
             if (resp == "OK")
             {
-                return RedirectToAction("ConsultarProductos", "Producto");
+                return RedirectToAction("ConsultaProductos", "Producto");
             }
             else
             {
@@ -88,7 +88,7 @@ namespace WebMN.Controllers
 
             if (resp == "OK")
             {
-                return RedirectToAction("ActualizarProducto", "Producto");
+                return RedirectToAction("ConsultaProductos", "Producto");
             }
             else
             {
