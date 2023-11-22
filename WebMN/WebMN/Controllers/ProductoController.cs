@@ -84,7 +84,7 @@ namespace WebMN.Controllers
         [HttpPost]
         public ActionResult ActualizarProducto(ProductoEnt entidad)
         {
-            var resp = productoModel.ActualizarProducto(entidad);
+            string resp = productoModel.ActualizarProducto(entidad);
 
             if (resp == "OK")
             {
