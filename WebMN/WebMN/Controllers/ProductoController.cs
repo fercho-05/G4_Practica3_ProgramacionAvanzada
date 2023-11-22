@@ -64,7 +64,7 @@ namespace WebMN.Controllers
 
             if (resp == "OK")
             {
-                return RedirectToAction("ConsultaProductos", "Producto");
+                return RedirectToAction("ConsultarProductos", "Producto");
             }
             else
             {
@@ -82,13 +82,33 @@ namespace WebMN.Controllers
 
 
         [HttpPost]
-        public ActionResult ActualizarProducto(ProductoEnt entidad)
+        public ActionResult ActualizarProducto(HttpPostedFileBase ImgProducto, ProductoEnt entidad)
         {
+            string extension = Path.GetExtension(Path.GetFileName(ImgProducto.FileName));
+            
+            entidad.Imagen = "/Images/" + entidad.ConProducto + extension; //asignar nombre a la imagen cargada
+
             string resp = productoModel.ActualizarProducto(entidad);
 
             if (resp == "OK")
             {
-                return RedirectToAction("ConsultaProductos", "Producto");
+                string nombreBaseSinExtension = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Images", entidad.ConProducto.ToString());
+
+                // Buscar archivos en el folder images con el consecutivo como nombre no importa la ext
+                string[] archivosConMismoNombre = Directory.GetFiles(Path.GetDirectoryName(nombreBaseSinExtension), Path.GetFileNameWithoutExtension(nombreBaseSinExtension) + ".*");
+
+                foreach (var archivo in archivosConMismoNombre)
+                {
+                    System.IO.File.Delete(archivo);
+                }
+
+                string rutaNueva = AppDomain.CurrentDomain.BaseDirectory + "Images\\" + entidad.ConProducto + extension;
+                ImgProducto.SaveAs(rutaNueva);
+
+                productoModel.ActualizarRutaImagen(entidad);
+
+                ViewBag.MensajeUsuario = "Producto actualizado exitosamente";
+                return View();
             }
             else
             {
